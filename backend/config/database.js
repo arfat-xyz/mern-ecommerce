@@ -10,7 +10,6 @@ const connectDatabse = () => {
     })
     .then((data) => {
       console.log(`Mongodb connect with server: ${data.connection.host}`);
-    })
-    .catch((e) => console.log("error from : ", e));
+    });
 };
 module.exports = connectDatabse;
