@@ -5,7 +5,9 @@ const errorMiddleware = require("./middleware/error");
 app.use(express.json());
 // import all routes
 const product = require("./routes/productRouter");
+const user = require("./routes/userRoute");
 app.use("/api/v1", product);
+app.use("/api/v1", user);
 
 // middleware for errors
 app.use(errorMiddleware);
