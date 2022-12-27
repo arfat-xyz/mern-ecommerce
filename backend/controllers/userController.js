@@ -115,3 +115,10 @@ exports.resetPassword = catchAysncErrors(async (req, res, next) => {
   await user.save();
   sendToken(user, 200, res);
 });
+
+// get user details
+exports.getUserDetails = catchAysncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  res.status(200).json({ success: true, user });
+});
