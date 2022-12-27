@@ -122,3 +122,21 @@ exports.getUserDetails = catchAysncErrors(async (req, res, next) => {
 
   res.status(200).json({ success: true, user });
 });
+
+// user password update
+exports.updatePassword = catchAysncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+
+  const isPassMatched = await user.comparePassword(req.body.oldPassword);
+  if (!isPassMatched) {
+    return next(new ErrorHandler("Old password is incorrect", 400));
+  }
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Password does not match", 400));
+  }
+  user.password = req.body.newPassword;
+  await user.save();
+
+  sendToken(user, 200, res);
+});
