@@ -1,6 +1,7 @@
 const catchAysncErrors = require("../middleware/catchAysncErrors");
 const ErrorHandler = require("../utils/errorhandler");
 const User = require("../models/userModel");
+const crypto = require("crypto");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 exports.registerUser = catchAysncErrors(async (req, res, next) => {
@@ -65,7 +66,7 @@ exports.forgotPassword = catchAysncErrors(async (req, res, next) => {
 
   const resetPasswordUrl = `${req.protocol}://${req.get(
     "host"
-  )}/api/v1/password/rest/${resetToken}`;
+  )}/api/v1/password/reset/${resetToken}`;
 
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\n If you
   have not requested this email then , please ignore`;
@@ -76,7 +77,7 @@ exports.forgotPassword = catchAysncErrors(async (req, res, next) => {
       subject: `Ecommerce Password Recovery`,
       message,
     });
-    
+
     res.status(200).json({
       success: true,
       message: `Email sent to ${user.email} successfully`,
@@ -89,4 +90,28 @@ exports.forgotPassword = catchAysncErrors(async (req, res, next) => {
 
     return next(new ErrorHandler(error.message, 500));
   }
+});
+
+// reset passwrod
+
+exports.resetPassword = catchAysncErrors(async (req, res, next) => {
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new ErrorHandler("Password does not password", 404));
+  }
+
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+  await user.save();
+  sendToken(user, 200, res);
 });
