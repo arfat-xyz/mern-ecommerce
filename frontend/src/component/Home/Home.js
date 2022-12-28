@@ -2,7 +2,7 @@
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
 import Product from "./Product.js";
-// import MetaData from "../layout/MetaData";
+import MetaData from "../layout/MetaData";
 // import { clearErrors, getProduct } from "../../actions/productAction";
 // import { useSelector, useDispatch } from "react-redux";
 // import Loader from "../layout/Loader/Loader";
@@ -24,6 +24,7 @@ const product = {
 const Home = () => {
   return (
     <>
+      <MetaData title="The Raaz" />
       {/* banner section  */}
       <div className="banner">
         <p>Welcome to The Raaz.</p>
