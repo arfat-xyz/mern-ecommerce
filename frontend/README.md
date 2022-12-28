@@ -9,3 +9,5 @@
 - react-router-dom
 - overlay-navbar
 - webfontloader -> use to download font for website
+- react-rating-stars-component -> use for ratings
+- react-lazy-load-image-component -> use for image lazy loading
