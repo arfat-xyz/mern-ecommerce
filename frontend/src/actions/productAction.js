@@ -11,15 +11,16 @@ export const getProduct = () => async (dispatch) => {
     dispatch({ type: ALL_PRODUCT_REQUEST });
 
     const { data } = await axios.get("/api/v1/products");
-    console.log("data", data);
+    // console.log("data", data);
     dispatch({
       type: ALL_PRODUCT_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    // console.log(error);
+    // console.log("error", error);
     dispatch({
       type: ALL_PRODUCT_FAIL,
+      // payload: error.response.data.message,
       payload: error.response.data.message,
     });
   }

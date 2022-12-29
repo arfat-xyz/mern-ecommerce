@@ -8,19 +8,21 @@ import { clearErrors, getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Loading from "../extraComponent/Loading";
-// import Loader from "../layout/Loader/Loader";
+import toast from "react-hot-toast";
 // import { useAlert } from "react-alert";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const { loading, error, products, productCount } = useSelector(
+  const dispath = useDispatch();
+  const { loading, errorMessage, products, productsCount } = useSelector(
     (state) => state.products
   );
+  // const x = useSelector((state) => state.products);
+  // console.log("object", x, "prodcuts", products, "errorMessage", errorMessage);
   useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+    dispath(getProduct());
+  }, [dispath]);
   loading && <Loading />;
-  // if (loading) return <Loading />;
+  errorMessage && toast.error(errorMessage);
   return (
     <>
       <MetaData title="The Raaz" />

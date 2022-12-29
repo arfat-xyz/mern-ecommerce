@@ -4,7 +4,7 @@ import logo from "../../../images/logo.png";
 import { MdAccountCircle } from "react-icons/md";
 import { MdSearch } from "react-icons/md";
 import { MdAddShoppingCart } from "react-icons/md";
-
+import { Toaster } from "react-hot-toast";
 const options = {
   burgerColor: "#ed665c",
   burgerColorHover: "#eb4034",
@@ -46,7 +46,14 @@ const options = {
 };
 
 const Header = () => {
-  return <ReactNavbar {...options} />;
+  return (
+    <>
+      <Toaster position="top-center" reverseOrder={false} />
+      <ReactNavbar {...options} />
+
+      {/* Same as */}
+    </>
+  );
 };
 
 export default Header;
