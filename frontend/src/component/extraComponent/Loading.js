@@ -1,6 +1,4 @@
 import React from "react";
-import { IconContext } from "react-icons";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Loading.css";
 const Loading = () => {
   return (

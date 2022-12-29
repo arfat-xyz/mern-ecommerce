@@ -1,10 +1,8 @@
-import { IconContext } from "react-icons";
 import { CgMouse } from "react-icons/cg";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Home.css";
-import Product from "./Product.js";
+import ProductCard from "./ProductCard.js";
 import MetaData from "../layout/MetaData";
-import { clearErrors, getProduct } from "../../actions/productAction";
+import { getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Loading from "../extraComponent/Loading";
@@ -43,7 +41,7 @@ const Home = () => {
         {/* <Product product={product} /> */}
         {products &&
           products.map((product, i) => (
-            <Product product={product} key={product._id} />
+            <ProductCard product={product} key={product._id} />
           ))}
       </div>
     </>

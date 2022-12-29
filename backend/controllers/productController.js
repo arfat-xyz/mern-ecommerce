@@ -13,7 +13,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 });
 //  get all products -- user
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  return next(new ErrorHander("Biriyani ses", 404));
+  // return next(new ErrorHander("Biriyani ses", 404));
   const resultPerPage = 20;
   const productCount = await Product.countDocuments();
   const apiFeature = new ApiFeatures(Product.find(), req.query)
@@ -44,6 +44,8 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 // get single product details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
+  // return next(new ErrorHander("product nai", 404));
+  console.log("product", product);
   if (!product) {
     return next(new ErrorHander("Product not found", 404));
   }
