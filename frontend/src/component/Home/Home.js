@@ -1,27 +1,26 @@
-// import React, { useEffect } from "react";
+import { IconContext } from "react-icons";
 import { CgMouse } from "react-icons/cg";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Home.css";
 import Product from "./Product.js";
 import MetaData from "../layout/MetaData";
-// import { clearErrors, getProduct } from "../../actions/productAction";
-// import { useSelector, useDispatch } from "react-redux";
+import { clearErrors, getProduct } from "../../actions/productAction";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import Loading from "../extraComponent/Loading";
 // import Loader from "../layout/Loader/Loader";
 // import { useAlert } from "react-alert";
 
-// temporary product
-const product = {
-  name: "arfat",
-  images: [
-    {
-      url: "https://i.ibb.co/JdyvG1V/model-man-clothing-black-outerwear-jacket-1594696-pxhere-com.jpg",
-    },
-  ],
-  price: "$200",
-  _id: "arfat",
-  ratings: 5,
-};
-
 const Home = () => {
+  const dispatch = useDispatch();
+  const { loading, error, products, productCount } = useSelector(
+    (state) => state.products
+  );
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+  loading && <Loading />;
+  // if (loading) return <Loading />;
   return (
     <>
       <MetaData title="The Raaz" />
@@ -39,15 +38,11 @@ const Home = () => {
       {/* feature prducts  */}
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {/* <Product product={product} /> */}
+        {products &&
+          products.map((product, i) => (
+            <Product product={product} key={product._id} />
+          ))}
       </div>
     </>
   );

@@ -7,7 +7,7 @@ const Product = ({ product }) => {
   const options = {
     edit: false,
     color: "rgba(20,20,20,.1)",
-    value: product.ratings / 2,
+    value: product.ratings,
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
   };
@@ -18,7 +18,8 @@ const Product = ({ product }) => {
 
         <p>{product.name}</p>
         <div>
-          <ReactStars {...options} /> <span>(222 reviews)</span>
+          <ReactStars {...options} />{" "}
+          <span>({product.numOfReviews} reviews)</span>
         </div>
         <span>{product.price}</span>
       </Link>

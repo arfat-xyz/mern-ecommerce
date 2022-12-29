@@ -6,6 +6,7 @@ import { MdSearch } from "react-icons/md";
 import { MdAddShoppingCart } from "react-icons/md";
 
 const options = {
+  burgerColor: "#ed665c",
   burgerColorHover: "#eb4034",
   logo,
   logoWidth: "20vmax",
