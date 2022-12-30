@@ -36,12 +36,14 @@ import {
 } from "../constants/productContants";
 
 export const getProduct =
-  (keyword = "") =>
+  (keyword = "", currentPage = 1) =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
 
-      const { data } = await axios.get(`/api/v1/products?keyword=${keyword}`);
+      const { data } = await axios.get(
+        `/api/v1/products?keyword=${keyword}&page=${currentPage}`
+      );
       // console.log("data", data);
       dispatch({
         type: ALL_PRODUCT_SUCCESS,

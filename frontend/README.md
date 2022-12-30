@@ -16,3 +16,4 @@
 - @mui/material
 - @mui/icons-material
 - @mui/styles
+- react-paginate

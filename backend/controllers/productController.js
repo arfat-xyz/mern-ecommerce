@@ -14,14 +14,16 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 //  get all products -- user
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   // return next(new ErrorHander("Biriyani ses", 404));
-  const resultPerPage = 20;
-  const productCount = await Product.countDocuments();
+  const resultPerPage = 8;
+  const productsCount = await Product.countDocuments();
   const apiFeature = new ApiFeatures(Product.find(), req.query)
     .search()
     .filter()
     .pagination(resultPerPage);
   const products = await apiFeature.query;
-  res.status(200).json({ success: true, products, productCount });
+  res
+    .status(200)
+    .json({ success: true, products, productsCount, resultPerPage });
 });
 
 // update product -- admin
