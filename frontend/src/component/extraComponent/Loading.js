@@ -2,15 +2,15 @@ import React from "react";
 import "./Loading.css";
 const Loading = () => {
   return (
-    <div class="wrap">
-      <div class="eye" id="eye1">
-        <div class="eye" id="eye2">
-          <div class="eye" id="eye3">
-            <div class="eye" id="eye4">
-              <div class="eye" id="eye5">
-                <div class="eye" id="eye6">
-                  <div class="eye" id="eye7">
-                    <div class="eye" id="eye8"></div>
+    <div className="wrap">
+      <div className="eye" id="eye1">
+        <div className="eye" id="eye2">
+          <div className="eye" id="eye3">
+            <div className="eye" id="eye4">
+              <div className="eye" id="eye5">
+                <div className="eye" id="eye6">
+                  <div className="eye" id="eye7">
+                    <div className="eye" id="eye8"></div>
                   </div>
                 </div>
               </div>

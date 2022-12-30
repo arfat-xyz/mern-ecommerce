@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 
 const Home = () => {
   const dispath = useDispatch();
-  const { loading, errorMessage, products, productsCount } = useSelector(
+  const { loading, errorMessage, products } = useSelector(
     (state) => state.products
   );
   // const x = useSelector((state) => state.products);
