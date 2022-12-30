@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./component/layout/Header/Header.js";
 import Home from "./component/Home/Home.js";
 import Products from "./component/Product/Products.js";
+import Search from "./component/Product/Search.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/product/:id" element={<ProductDetails />} />
           <Route exact path="/products" element={<Products />} />
+          <Route exact path="/search" element={<Search />} />
         </Routes>
         <Footer />
       </Router>

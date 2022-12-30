@@ -30,6 +30,8 @@ const options = {
   link1ColorHover: "#eb4034",
   link1Margin: "1vmax",
   profileIconUrl: "/login",
+  searchIconUrl: "/search",
+  cartIconUrl: "/cart",
   profileIcon: true,
   ProfileIconElement: MdAccountCircle,
   searchIcon: true,
