@@ -9,6 +9,7 @@ import WebFont from "webfontloader";
 
 import Footer from "./component/layout/Footer/Footer";
 import ProductDetails from "./component/Product/ProductDetails.js";
+import LoginSignUp from "./component/User/LoginSignUp";
 function App() {
   useEffect(() => {
     WebFont.load({
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />
           <Route exact path="/search" element={<Search />} />
+          <Route exact path="/login" element={<LoginSignUp />} />
         </Routes>
         <Footer />
       </Router>

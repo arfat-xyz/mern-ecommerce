@@ -38,7 +38,7 @@ const Products = () => {
     errorMessage,
     productsCount,
     resultPerPage,
-    filteredProductsCount,
+    // filteredProductsCount,
   } = useSelector((state) => state.products);
   // const x = useSelector((state) => state.products);
   // console.log("object", x, filteredProductsCount);

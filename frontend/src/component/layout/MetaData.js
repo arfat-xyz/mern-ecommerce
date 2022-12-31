@@ -2,7 +2,6 @@ import React from "react";
 import Helmet from "react-helmet";
 import { useLocation } from "react-router-dom";
 const MetaData = ({ title }) => {
-  const navigate = useLocation();
   return (
     <>
       
