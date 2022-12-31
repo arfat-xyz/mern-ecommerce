@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard.js";
 import ReactStars from "react-rating-stars-component";
+import MetaData from "../layout/MetaData";
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ const ProductDetails = () => {
     }
     dispatch(getProductDetails(id));
   }, [dispatch, id, error]);
-  const x = useSelector((state) => state.productDetails);
+  // const x = useSelector((state) => state.productDetails);
   // console.log("x", x);
 
   const options = {
@@ -55,6 +56,7 @@ const ProductDetails = () => {
   loading || (product.ratings && <Loading />);
   return (
     <>
+      <MetaData title={product.name} />
       <div className="ProductDetails">
         <div>
           <Carousel>

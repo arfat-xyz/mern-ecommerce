@@ -12,7 +12,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   });
 });
 //  get all products -- user
-exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
+/* exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   // return next(new ErrorHander("Biriyani ses", 404));
   const resultPerPage = 8;
   const productsCount = await Product.countDocuments();
@@ -22,8 +22,41 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   let products = await apiFeature.query;
   let filteredProductsCount = products.length;
   apiFeature.pagination(resultPerPage);
-  // console.log("products", products, filteredProductsCount);
-  // products = await apiFeature.query;
+  console.log(
+    // "products",
+    // products,
+    // filteredProductsCount,
+    "req.query",
+    apiFeature
+  );
+  // let products = await apiFeature.query;
+  res.status(200).json({
+    success: true,
+    products,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  });
+}); */
+exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
+  // return next(new ErrorHander("Biriyani ses", 404));
+  const resultPerPage = 12;
+  const productsCount = await Product.countDocuments();
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
+
+  // let products = await apiFeature.query;
+
+  // let filteredProductsCount = products.length;
+
+  // apiFeature.pagination(resultPerPage);
+
+  let products = await apiFeature.query;
+
+  let filteredProductsCount = products.length;
+  console.log(products);
   res.status(200).json({
     success: true,
     products,
