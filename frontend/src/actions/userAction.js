@@ -51,7 +51,7 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
-    console.log("data", data);
+    // console.log("data", data);
     !data.error
       ? dispatch({
           type: LOGIN_SUCCESS,
@@ -92,13 +92,26 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 
+// logout user request
+export const logout = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`/api/v1/logout`);
+    // console.log("first", data)
+    !data.error
+      ? dispatch({ type: LOGOUT_SUCCESS })
+      : dispatch({ type: LOGOUT_FAIL, payload: data.message });
+  } catch (error) {
+    dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+  }
+};
+
 // load user request
-export const loadUser = (email, password) => async (dispatch) => {
+export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
     // const config = { headers: { "Content-Type": "application/json" } };
     const { data } = await axios.get(`/api/v1/me`);
-    console.log("data", data);
+    // console.log("data", data);
     !data.error
       ? dispatch({
           type: LOAD_USER_SUCCESS,
