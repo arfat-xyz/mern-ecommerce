@@ -1,14 +1,19 @@
-import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./LoginSignUp.css";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import FaceIcon from "@mui/icons-material/Face";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrors, login, register } from "../../actions/userAction";
+import Loading from "../extraComponent/Loading";
 const LoginSignUp = () => {
+  const dispatch = useDispatch();
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-
+  const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -17,28 +22,34 @@ const LoginSignUp = () => {
     email: "",
     password: "",
   });
-
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+  // const x = useSelector((state) => state.user);
+  // console.log("x", x);
   const { name, email, password } = user;
 
   const [avatar, setAvatar] = useState("/Profile.png");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
+
   //   login form submit function
   const loginSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
+    dispatch(login(loginEmail, loginPassword));
   };
 
   //   registration form submit function
   const registerSubmit = (e) => {
     e.preventDefault();
 
-    const myForm = new FormData();
+    let myForm = new FormData();
 
-    myForm.set("name", name);
-    myForm.set("email", email);
+    myForm.append("name", name);
+    myForm.append("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
-    console.log("Regiration fomr submit");
+
+    dispatch(register(myForm));
   };
 
   const registerDataChange = (e) => {
@@ -46,6 +57,7 @@ const LoginSignUp = () => {
       const reader = new FileReader();
 
       reader.onload = () => {
+        // console.log("reader", reader);
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
           setAvatar(reader.result);
@@ -57,6 +69,16 @@ const LoginSignUp = () => {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+    if (isAuthenticated) {
+      navigate("/account");
+    }
+  }, [dispatch, error, isAuthenticated, navigate]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
@@ -74,6 +96,7 @@ const LoginSignUp = () => {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
+  loading && <Loading />;
   return (
     <>
       <div className="LoginSignUpContainer">

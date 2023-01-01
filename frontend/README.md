@@ -17,3 +17,5 @@
 - @mui/icons-material
 - @mui/styles
 - react-paginate
+- express-fileupload
+- cloudinary
