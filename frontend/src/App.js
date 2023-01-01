@@ -10,6 +10,8 @@ import WebFont from "webfontloader";
 import Footer from "./component/layout/Footer/Footer";
 import ProductDetails from "./component/Product/ProductDetails.js";
 import LoginSignUp from "./component/User/LoginSignUp";
+import store from "./store";
+import { loadUser } from "./actions/userAction";
 function App() {
   useEffect(() => {
     WebFont.load({
@@ -17,6 +19,7 @@ function App() {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
+    store.dispatch(loadUser());
   }, []);
   return (
     <>
