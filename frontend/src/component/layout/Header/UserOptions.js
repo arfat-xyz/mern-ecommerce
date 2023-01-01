@@ -18,15 +18,19 @@ const UserOptions = ({ user }) => {
   const dispatch = useDispatch();
   const dashboard = () => {
     navigate("/dashboard");
+    setOpen(false);
   };
   const orders = () => {
     navigate("/orders");
+    setOpen(false);
   };
   const account = () => {
     navigate("/account");
+    setOpen(false);
   };
   const logoutUser = () => {
     dispatch(logout());
+    setOpen(false);
     toast.success("Logout Successfully");
     navigate("/");
   };
