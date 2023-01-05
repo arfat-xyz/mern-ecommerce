@@ -9,8 +9,8 @@ import { useEffect } from "react";
 const Profile = () => {
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const x = useSelector((state) => state.user);
-  console.log(x);
+  // const x = useSelector((state) => state.user);
+  // console.log(x);
   useEffect(() => {}, []);
   if (isAuthenticated === false && loading === false) {
     navigate("/");

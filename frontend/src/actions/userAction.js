@@ -123,6 +123,35 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
+//Update Profile
+export const updateProfile = (userData) => async (dispatch) => {
+  // console.log(Object.fromEntries(userData));
+  try {
+    dispatch({ type: UPDATE_PROFILE_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/v1/me/update`,
+      Object.fromEntries(userData),
+      config
+    );
+    // console.log("data", data);
+    !data.error
+      ? dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success })
+      : dispatch({
+          type: UPDATE_PROFILE_FAIL,
+          payload: data.message,
+        });
+    // dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PROFILE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // clearing errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
