@@ -180,6 +180,31 @@ export const updatePassword = (passwords) => async (dispatch) => {
   }
 };
 
+// Forgot password
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: FORGOT_PASSWORD_REQUEST });
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await axios.post(
+      `/api/v1/password/forgot`,
+      { email },
+      config
+    );
+    // console.log("data", data);
+    !data.error
+      ? dispatch({
+          type: FORGOT_PASSWORD_SUCCESS,
+          payload: data.message,
+        })
+      : dispatch({ type: FORGOT_PASSWORD_FAIL, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // clearing errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
