@@ -205,6 +205,31 @@ export const forgotPassword = (email) => async (dispatch) => {
   }
 };
 
+// Reser  password
+export const resetPassword = (token, formData) => async (dispatch) => {
+  try {
+    dispatch({ type: RESET_PASSWORD_REQUEST });
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await axios.put(
+      `/api/v1/password/reset/${token}`,
+      { password: formData.get("password") },
+      config
+    );
+    // console.log("data", data);
+    !data.error
+      ? dispatch({
+          type: RESET_PASSWORD_SUCCESS,
+          payload: data.success,
+        })
+      : dispatch({ type: RESET_PASSWORD_FAIL, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // clearing errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });

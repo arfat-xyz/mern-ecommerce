@@ -32,9 +32,13 @@ const ForgotPassword = () => {
     }
     if (message) {
       toast.success(message);
+      
     }
+    // loading && <Loading />;
   }, [dispatch, error, message]);
-  loading && <Loading />;
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
       <MetaData title="Forget Password" />
