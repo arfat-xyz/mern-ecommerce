@@ -65,6 +65,7 @@
   width: 100%;
   align-items: center;
 }
+
 .loginForm > div > input,
 .signUpForm > div > input {
   padding: 1vmax 4vmax;
@@ -209,4 +210,12 @@
     font: 300 1.9vmax "Roboto";
     padding: 1.8vmax;
   }
+}
+.loginPassword {
+  position: relative;
+}
+.lol {
+  top: 25%;
+  right: 10%;
+  cursor: pointer;
 }

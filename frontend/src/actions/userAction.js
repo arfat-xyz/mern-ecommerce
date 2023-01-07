@@ -151,6 +151,34 @@ export const updateProfile = (userData) => async (dispatch) => {
     });
   }
 };
+//Update Profile
+export const updatePassword = (passwords) => async (dispatch) => {
+  // console.log(Object.fromEntries(userData));
+  try {
+    dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/v1/password/update`,
+      Object.fromEntries(passwords),
+      config
+    );
+    // console.log("data", data);
+    !data.error
+      ? dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success })
+      : dispatch({
+          type: UPDATE_PASSWORD_FAIL,
+          payload: data.message,
+        });
+    // dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // clearing errors
 export const clearErrors = () => async (dispatch) => {

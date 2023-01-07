@@ -4,7 +4,9 @@ import "./LoginSignUp.css";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import FaceIcon from "@mui/icons-material/Face";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import toast from "react-hot-toast";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import Loading from "../extraComponent/Loading";
@@ -16,6 +18,7 @@ const LoginSignUp = () => {
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [user, setUser] = useState({
     name: "",
@@ -122,12 +125,23 @@ const LoginSignUp = () => {
             <div className="loginPassword">
               <LockPersonIcon />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 required
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
               />
+              {showPassword ? (
+                <VisibilityOffIcon
+                  className="lol"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <RemoveRedEyeIcon
+                  className="lol"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
             </div>
             <Link to="/password/forgot">Forget Password ?</Link>
             <input type="submit" value="Login" className="loginBtn" />
@@ -160,7 +174,7 @@ const LoginSignUp = () => {
                 onChange={registerDataChange}
               />
             </div>
-            <div className="signUpPassword">
+            {/* <div className="signUpPassword">
               <LockPersonIcon />
               <input
                 type="password"
@@ -170,6 +184,28 @@ const LoginSignUp = () => {
                 value={password}
                 onChange={registerDataChange}
               />
+            </div> */}
+            <div className="loginPassword signUpPassword">
+              <LockPersonIcon />
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                required
+                name="password"
+                value={password}
+                onChange={registerDataChange}
+              />
+              {showPassword ? (
+                <VisibilityOffIcon
+                  className="lol"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <RemoveRedEyeIcon
+                  className="lol"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
             </div>
 
             <div id="registerImage">

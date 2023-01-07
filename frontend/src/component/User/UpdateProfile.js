@@ -1,20 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./UpdateProfile.css";
-import LockPersonIcon from "@mui/icons-material/LockPerson";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import FaceIcon from "@mui/icons-material/Face";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearErrors,
-  loadUser,
-  login,
-  register,
-  updateProfile,
-} from "../../actions/userAction";
+import { clearErrors, loadUser, updateProfile } from "../../actions/userAction";
 import Loading from "../extraComponent/Loading";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstant";
+import MetaData from "../layout/MetaData";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
@@ -74,6 +68,7 @@ const UpdateProfile = () => {
   loading && <Loading />;
   return (
     <>
+      <MetaData title="Update Profile" />
       <div className="updateProfileContainer">
         <div className="updateProfileBox">
           <h2 className="updateProfileHeading">Update Profile</h2>
