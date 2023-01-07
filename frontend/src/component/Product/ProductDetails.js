@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard.js";
 import ReactStars from "react-rating-stars-component";
 import MetaData from "../layout/MetaData";
+import { addItemsToCart } from "../../actions/cartAction";
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   // const [open, setOpen] = useState(false);
@@ -33,12 +34,12 @@ const ProductDetails = () => {
     isHalf: true,
     color: "rgba(20,20,20,.1)",
     size: window.innerWidth > 1025 ? 25 : 18,
-    value: product.ratings,
+    value: product?.ratings,
     readOnly: true,
     precision: 0.5,
   };
   const increaseQuantity = () => {
-    if (product.Stock <= quantity) return;
+    if (product?.Stock <= quantity) return;
 
     const qty = quantity + 1;
     setQuantity(qty);
@@ -49,19 +50,25 @@ const ProductDetails = () => {
     const qty = quantity - 1;
     setQuantity(qty);
   };
+
+  const addToCartHandler = () => {
+    console.log(id, quantity);
+    dispatch(addItemsToCart(id, quantity));
+    toast.success("Item added to Cart");
+  };
+
   error && toast(error);
   if (error) return;
 
-  // console.log(product);
-  loading || (product.ratings && <Loading />);
-  return (
+  return loading & product ? (
+    <Loading />
+  ) : (
     <>
-      <MetaData title={product.name} />
       <div className="ProductDetails">
         <div>
           <Carousel>
-            {product.images &&
-              product.images.map((item, i) => (
+            {product?.images &&
+              product?.images.map((item, i) => (
                 <img
                   className="CarouselImage"
                   key={i}
@@ -74,18 +81,18 @@ const ProductDetails = () => {
 
         <div>
           <div className="detailsBlock-1">
-            <h2>{product.name}</h2>
-            <p>Product ID: # {product._id}</p>
+            <h2>{product?.name}</h2>
+            <p>Product ID: # {product?._id}</p>
           </div>
           <div className="detailsBlock-2">
             {!loading && <ReactStars {...options} />}
             <span className="detailsBlock-2-span">
               {" "}
-              ({product.numOfReviews} Reviews)
+              ({product?.numOfReviews} Reviews)
             </span>
           </div>
           <div className="detailsBlock-3">
-            <h1>{`₹${product.price}`}</h1>
+            <h1>{`₹${product?.price}`}</h1>
             <div className="detailsBlock-3-1">
               <div className="detailsBlock-3-1-1">
                 <button onClick={decreaseQuantity}>-</button>
@@ -93,8 +100,8 @@ const ProductDetails = () => {
                 <button onClick={increaseQuantity}>+</button>
               </div>
               <button
-                disabled={product.Stock < 1 ? true : false}
-                // onClick={addToCartHandler}
+                disabled={product?.Stock < 1 ? true : false}
+                onClick={addToCartHandler}
               >
                 Add to Cart
               </button>
@@ -102,14 +109,14 @@ const ProductDetails = () => {
 
             <p>
               Status:
-              <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
-                {product.Stock < 1 ? "OutOfStock" : "InStock"}
+              <b className={product?.Stock < 1 ? "redColor" : "greenColor"}>
+                {product?.Stock < 1 ? "OutOfStock" : "InStock"}
               </b>
             </p>
           </div>
 
           <div className="detailsBlock-4">
-            Description : <p>{product.description}</p>
+            Description : <p>{product?.description}</p>
           </div>
 
           <button
@@ -121,11 +128,11 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {product.reviews && product.reviews[0] ? (
+      {product?.reviews && product?.reviews[0] ? (
         <div className="reviews">
-          {product.reviews &&
-            product.reviews.map((review) => (
-              <ReviewCard review={review} key={review._id} />
+          {product?.reviews &&
+            product?.reviews.map((review) => (
+              <ReviewCard review={review} key={review?._id} />
             ))}
         </div>
       ) : (
