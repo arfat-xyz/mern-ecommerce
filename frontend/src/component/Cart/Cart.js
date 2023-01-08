@@ -1,8 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addItemsToCart } from "../../actions/cartAction";
+import { addItemsToCart, removeItemsFromCart } from "../../actions/cartAction";
 import "./Cart.css";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import CartItemCard from "./CartItemCard.js";
+import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 // const item = {
 //   product: "arfat",
 //   price: 200,
@@ -29,43 +32,56 @@ const Cart = () => {
     }
     dispatch(addItemsToCart(id, newQty));
   };
+  const deleteCartItems = (id) => dispatch(removeItemsFromCart(id));
   return (
     <>
-      <div className="cartPage">
-        <div className="cartHeader">
-          <p>Product</p>
-          <p>Quantity</p>
-          <p>Subtotal</p>
+      {cartItems.length === 0 ? (
+        <div className="emptyCart">
+          <RemoveShoppingCartIcon />
+          <Typography>No product in your cart</Typography>
+          <Link to={"/products"}> View Products</Link>
         </div>
-        {cartItems.map((item) => (
-          <div className="cartContainer" key={item.product}>
-            <CartItemCard item={item} />
-            <div className="cartInput">
-              <button onClick={() => decreaseQuantity(item)}>-</button>
-              <input
-                type="number"
-                value={item.quantity}
-                readOnly
-                autoComplete="off"
-              />
-              <button onClick={() => increaseQuantity(item)}>+</button>
+      ) : (
+        <>
+          <div className="cartPage">
+            <div className="cartHeader">
+              <p>Product</p>
+              <p>Quantity</p>
+              <p>Subtotal</p>
             </div>
-            <p className="cartSubtotal">{`$ ${item.price * item.quantity}`}</p>
-          </div>
-        ))}
-        <div className="cartGrossProfit">
-          <div></div>
-          <div className="cartGrossProfitBox">
-            <p>Gross Total</p>
-            <p>{`10000`}</p>
-          </div>
-          <div>
-            <div className="checkOutBtn">
-              <button>Check Out</button>
+            {cartItems.map((item) => (
+              <div className="cartContainer" key={item.product}>
+                <CartItemCard item={item} deleteCartItems={deleteCartItems} />
+                <div className="cartInput">
+                  <button onClick={() => decreaseQuantity(item)}>-</button>
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    readOnly
+                    autoComplete="off"
+                  />
+                  <button onClick={() => increaseQuantity(item)}>+</button>
+                </div>
+                <p className="cartSubtotal">{`$ ${
+                  item.price * item.quantity
+                }`}</p>
+              </div>
+            ))}
+            <div className="cartGrossProfit">
+              <div></div>
+              <div className="cartGrossProfitBox">
+                <p>Gross Total</p>
+                <p>{`10000`}</p>
+              </div>
+              <div>
+                <div className="checkOutBtn">
+                  <button>Check Out</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };
