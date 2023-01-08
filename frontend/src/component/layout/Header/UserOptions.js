@@ -8,11 +8,13 @@ import {
   MdDashboard,
   MdExitToApp,
   MdFilterListAlt,
+  MdShoppingCart,
 } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../actions/userAction";
 const UserOptions = ({ user }) => {
+  const { cartItems } = useSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,6 +28,10 @@ const UserOptions = ({ user }) => {
   };
   const account = () => {
     navigate("/account");
+    setOpen(false);
+  };
+  const cart = () => {
+    navigate("/cart");
     setOpen(false);
   };
   const logoutUser = () => {
@@ -45,6 +51,15 @@ const UserOptions = ({ user }) => {
       icon: <MdAccountCircle />,
       name: "Profile",
       func: account,
+    },
+    {
+      icon: (
+        <MdShoppingCart
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
+      name: `Cart(${cartItems.length})`,
+      func: cart,
     },
     {
       icon: <MdExitToApp />,
@@ -81,6 +96,7 @@ const UserOptions = ({ user }) => {
       >
         {options.map((item) => (
           <SpeedDialAction
+            tooltipOpen={window.innerWidth <= 600 ? true : false}
             key={item.name}
             icon={item.icon}
             tooltipTitle={item.name}

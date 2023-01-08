@@ -33,6 +33,7 @@ const Cart = () => {
     dispatch(addItemsToCart(id, newQty));
   };
   const deleteCartItems = (id) => dispatch(removeItemsFromCart(id));
+  console.log(cartItems);
   return (
     <>
       {cartItems.length === 0 ? (
@@ -71,7 +72,13 @@ const Cart = () => {
               <div></div>
               <div className="cartGrossProfitBox">
                 <p>Gross Total</p>
-                <p>{`10000`}</p>
+                <p>
+                  $
+                  {cartItems.reduce(
+                    (acc, item) => acc + item.quantity * item.price,
+                    0
+                  )}
+                </p>
               </div>
               <div>
                 <div className="checkOutBtn">
