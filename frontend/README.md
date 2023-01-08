@@ -19,3 +19,4 @@
 - react-paginate
 - express-fileupload
 - cloudinary
+- country-state-city -> get all country and city name
