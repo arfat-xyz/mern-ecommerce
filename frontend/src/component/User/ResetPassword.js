@@ -17,7 +17,6 @@ const ResetPassword = (props) => {
   const { error, success, loading } = useSelector(
     (state) => state.forgotPassword
   );
-
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
