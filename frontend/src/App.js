@@ -22,6 +22,7 @@ import ResetPassword from "./component/User/ResetPassword.js";
 import Cart from "./component/Cart/Cart.js";
 import Shipping from "./component/Cart/Shipping.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder.js";
+import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import Testing from "./component/extraComponent/Testing";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
@@ -83,6 +84,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <ConfirmOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/success"
+            element={
+              <ProtectedRoute>
+                <OrderSuccess />
               </ProtectedRoute>
             }
           />
