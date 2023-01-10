@@ -26,6 +26,7 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     paidAt: Date.now(),
     user: req.user._id,
   });
+  console.log(req.body);
   res.status(201).json({
     success: true,
     order,

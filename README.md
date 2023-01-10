@@ -8,3 +8,4 @@
 - nodemailer -> mail sent to email
 - cookie-parser -> save json token as cookie
 - body-parser
+- stripe -> add backend payment method

@@ -4,7 +4,7 @@ import Home from "./component/Home/Home.js";
 import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import WebFont from "webfontloader";
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import Footer from "./component/layout/Footer/Footer";
@@ -22,9 +22,19 @@ import ResetPassword from "./component/User/ResetPassword.js";
 import Cart from "./component/Cart/Cart.js";
 import Shipping from "./component/Cart/Shipping.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder.js";
+import Testing from "./component/extraComponent/Testing";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Payment from "./component/Cart/Payment";
 function App() {
+  const [stripeApiKey, setStripeApiKey] = useState("");
   const { isAuthenticated, user } = useSelector((state) => state.user);
-
+  const getStripeApiKey = async () => {
+    const data = await axios.get("/api/v1/stripeapikey");
+    console.log(data);
+    setStripeApiKey(data);
+  };
   // console.log("user", user);
   useEffect(() => {
     WebFont.load({
@@ -33,6 +43,8 @@ function App() {
       },
     });
     store.dispatch(loadUser());
+    getStripeApiKey();
+    console.log(stripeApiKey);
   }, []);
   return (
     <>
@@ -72,6 +84,21 @@ function App() {
               <ProtectedRoute>
                 <ConfirmOrder />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/process/payment"
+            element={
+              <Elements
+                stripe={loadStripe(
+                  `pk_test_51MOc2SKkIBd1m6aa2NPoOyox9G7hBtb6F23YyTn4e8j2ZDgxyrGHgGaOfEJpuWJKyxdgTBckgET52thye1tcxJ1D00bDByVNch`
+                )}
+              >
+                <ProtectedRoute>
+                  <Payment stripeApiKey={stripeApiKey} />
+                </ProtectedRoute>
+              </Elements>
             }
           />
           <Route
