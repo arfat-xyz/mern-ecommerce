@@ -14,7 +14,7 @@ const MyOrders = () => {
   const dispatch = useDispatch();
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
 
   //   columns and rows
   const columns = [

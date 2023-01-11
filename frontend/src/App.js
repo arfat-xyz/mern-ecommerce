@@ -24,6 +24,7 @@ import Shipping from "./component/Cart/Shipping.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder.js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import MyOrders from "./component/Order/MyOrders.js";
+import OrderDetails from "./component/Order/OrderDetails.js";
 import Testing from "./component/extraComponent/Testing";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
@@ -75,15 +76,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <Shipping />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            exact
-            path="/order/confirm"
-            element={
-              <ProtectedRoute>
-                <ConfirmOrder />
               </ProtectedRoute>
             }
           />
@@ -146,6 +138,24 @@ function App() {
             element={
               <ProtectedRoute>
                 <UpdateProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/order/confirm"
+            element={
+              <ProtectedRoute>
+                <ConfirmOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/order/:id"
+            element={
+              <ProtectedRoute>
+                <OrderDetails />
               </ProtectedRoute>
             }
           />

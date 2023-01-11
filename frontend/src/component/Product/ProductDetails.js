@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard.js";
 import ReactStars from "react-rating-stars-component";
-import MetaData from "../layout/MetaData";
 import { addItemsToCart } from "../../actions/cartAction";
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
