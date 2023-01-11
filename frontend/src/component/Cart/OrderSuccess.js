@@ -10,7 +10,7 @@ const OrderSuccess = () => {
       <div className="orderSuccess">
         <BsCheckCircle />
         <Typography>Your Order has been placed successfully</Typography>
-        <Link to={`/order/me`}>View Order</Link>
+        <Link to={`/orders`}>View Order</Link>
       </div>
     </>
   );

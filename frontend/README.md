@@ -21,3 +21,4 @@
 - cloudinary
 - country-state-city -> get all country and city name
 - @stripe/stripe-js -> get data from stripe backend
+- @mui/x-data-grid -> A fast and extendable react data table and react data grid.

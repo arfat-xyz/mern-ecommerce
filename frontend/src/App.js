@@ -23,6 +23,7 @@ import Cart from "./component/Cart/Cart.js";
 import Shipping from "./component/Cart/Shipping.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder.js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
+import MyOrders from "./component/Order/MyOrders.js";
 import Testing from "./component/extraComponent/Testing";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
@@ -45,7 +46,6 @@ function App() {
     });
     store.dispatch(loadUser());
     getStripeApiKey();
-    console.log(stripeApiKey);
   }, []);
   return (
     <>
@@ -93,6 +93,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <OrderSuccess />
+              </ProtectedRoute>
+            }
+          />{" "}
+          <Route
+            exact
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <MyOrders />
               </ProtectedRoute>
             }
           />
