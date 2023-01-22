@@ -66,6 +66,7 @@ export const productsReducer = (state = { products: [] }, action) => {
       return state;
   }
 };
+
 export const productDetailsReducer = (state = { product: {} }, action) => {
   // console.log("action", action);
   switch (action.type) {
@@ -86,6 +87,44 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newReviewReducer = (state = {}, action) => {
+  // console.log("action", action);
+  switch (action.type) {
+    case NEW_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+        ...(action.error && {
+          error: action.error,
+        }),
+      };
+    case NEW_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_REVIEW_RESET:
+      return {
+        ...state,
+        success: false,
       };
 
     case CLEAR_ERROR:

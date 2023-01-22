@@ -87,7 +87,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   // return next(new ErrorHander("product nai", 404));
-  console.log("product", product);
+  // console.log("product", product);
   if (!product) {
     return next(new ErrorHander("Product not found", 404));
   }

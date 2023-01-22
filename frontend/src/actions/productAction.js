@@ -83,6 +83,33 @@ export const getProductDetails = (id) => async (dispatch) => {
   }
 };
 
+// new review
+export const newReview = (reviewData) => async (dispatch) => {
+  try {
+    // console.log(reviewData);
+    dispatch({ type: NEW_REVIEW_REQUEST });
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(`/api/v1/review`, reviewData, config);
+    // console.log(`/api/v1/product/${id}`);
+    // console.log("data", data);
+    dispatch({
+      type: NEW_REVIEW_SUCCESS,
+      payload: data.success,
+      ...(!data.success && { error: data.message }),
+    });
+  } catch (error) {
+    // console.log("error", error);
+    dispatch({
+      type: NEW_REVIEW_FAIL,
+      // payload: error.response.data.message,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // clearing error
 export const clearError = async (dispatch) => {
   dispatch({ type: CLEAR_ERROR });

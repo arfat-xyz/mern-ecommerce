@@ -241,6 +241,7 @@ exports.deleteUser = catchAysncErrors(async (req, res, next) => {
 // Create new review or update the review
 exports.createProductReview = catchAysncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
+  console.log(req.body);
   const review = {
     user: req.user._id,
     name: req.user.name,

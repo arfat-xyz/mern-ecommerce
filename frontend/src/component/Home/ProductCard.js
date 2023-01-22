@@ -1,15 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
-import MetaData from "../layout/MetaData";
+import { Rating } from "@mui/material";
 const Product = ({ product }) => {
   // console.log(product);
   const options = {
-    edit: false,
-    color: "rgba(20,20,20,.1)",
-    value: product.ratings,
-    isHalf: true,
-    size: window.innerWidth > 1025 ? 25 : 18,
+    size: "large",
+    value: product?.ratings,
+    readOnly: true,
+    precision: 0.5,
   };
   return (
     <>
@@ -19,8 +17,7 @@ const Product = ({ product }) => {
 
         <p>{product.name}</p>
         <div>
-          <ReactStars {...options} />{" "}
-          <span>({product.numOfReviews} reviews)</span>
+          <Rating {...options} /> <span>({product.numOfReviews} reviews)</span>
         </div>
         <span>{product.price}</span>
       </Link>
